@@ -1,0 +1,20 @@
+import ssh_blackjack.py
+class BlakJackLobby:
+    def __init__(self):
+        self.players = {} # {username: address}
+        self.signalBuffer = [] # [{username: signal}]
+        self.started = False
+        self.blackjack = None
+    
+    def _start(self):
+        self.started = True
+
+    def _stop(self):
+        self.started = False
+
+    def _play(self):
+        if self.blackjack is None:
+            self.blackjack = BlackJack(len(self.players))
+        else:
+
+
