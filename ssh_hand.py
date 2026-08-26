@@ -1,4 +1,4 @@
-from card import Card
+from ssh_card import Card
 
 class Hand:
     def __init__(self):

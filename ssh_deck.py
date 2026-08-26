@@ -1,5 +1,5 @@
 import random
-from card import Card
+from ssh_card import Card
 from ssh_hand import Hand
 
 class Deck:
