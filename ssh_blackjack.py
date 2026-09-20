@@ -15,14 +15,14 @@ class BlackJack:
 
         self.dealerHand = Hand()
         self.dealerHand.name = "Dealer"
-        self.signalBuffer.append({hand.name:{hand.name:Signal(type=SignalType.DEAL, message=self.deck.deal(self.dealerHand, 2))})
-        self.hands = None
+        self.signalBuffer.append({self.dealerHand.name:Signal(type=SignalType.DEAL, message=self.deck.deal(self.dealerHand, 2))})
+        self.hands = []
 
         for player in players:
             hand = Hand()
             hand.name = player
             self.hands.append(hand)
-            self.signalBuffer({hand.name:Signal(type=SignalType.DEAL, message=self.deck.deal(hand, 2))})
+            self.signalBuffer.append({hand.name:Signal(type=SignalType.DEAL, message=self.deck.deal(hand, 2))})
         
         time.sleep(0.5)
 
@@ -94,22 +94,23 @@ class BlackJack:
                 hand.sum += 1
             aceCount -= 1
 
-def start(self, playerCount):
-    while self._validateHand(self.dealerHand): # Dealer hits while under 17
-        if self.dealerHand.sum < 17:
-            self.signalBuffer(Signal(type=SignalType.DEAL, message=self.deck.deal(self.dealerHand, 1)))
-            time.sleep(0.5)
-        else return
+    def start(self, playerCount):
+        while self._validateHand(self.dealerHand): # Dealer hits while under 17
+            if self.dealerHand.sum < 17:
+                self.signalBuffer.append(Signal(type=SignalType.DEAL, message=self.deck.deal(self.dealerHand, 1)))
+                time.sleep(0.5)
+            else:
+                return
 
 
-def _calculateResults(self):
-    for hand in self.hands:
-        if (self.dealerHand.sum > 21 or self.dealerHand.sum < hand.sum ) and hand.sum < 22:
-            self.signalBuffer.append({hand.nameSignal(type=SignalType.WIN, message=hand.show(len(hand.cards)), data={hand.name:hand.cards}, value=hand.sum))
-        elif (hand.sum > 21 or hand.sum < self.dealerHand.sum) and self.dealerHand.sum < 22:
-            self.signalBuffer.append({hand.name:Signal(type=SignalType.LOSE, message=self.dealerHand.show(len(self.dealerHand.cards)), data={self.dealerHand.name:self.dealerHand.cards}, value=self.dealerHand.sum)})
-        else:
-            self.signalBuffer.append({hand.name:Signal(type=SignalType.DRAW, message=f"{hand.show(len(hand.cards))}: {self.dealerHand.show(len(self.dealerHand.cards))}", data={self.dealerHand.name:self.dealerHand.cards, hand.name:hand.cards}, value=hand.sum)})
+    def _calculateResults(self):
+        for hand in self.hands:
+            if (self.dealerHand.sum > 21 or self.dealerHand.sum < hand.sum ) and hand.sum < 22:
+                self.signalBuffer.append({hand.name:Signal(type=SignalType.WIN, message=hand.show(len(hand.cards)), data={hand.name:hand.cards}, value=hand.sum)})
+            elif (hand.sum > 21 or hand.sum < self.dealerHand.sum) and self.dealerHand.sum < 22:
+                self.signalBuffer.append({hand.name:Signal(type=SignalType.LOSE, message=self.dealerHand.show(len(self.dealerHand.cards)), data={self.dealerHand.name:self.dealerHand.cards}, value=self.dealerHand.sum)})
+            else:
+                self.signalBuffer.append({hand.name:Signal(type=SignalType.DRAW, message=f"{hand.show(len(hand.cards))}: {self.dealerHand.show(len(self.dealerHand.cards))}", data={self.dealerHand.name:self.dealerHand.cards, hand.name:hand.cards}, value=hand.sum)})
 
 if __name__ == '__main__':
     bj = BlackJack(["Gimli"])
